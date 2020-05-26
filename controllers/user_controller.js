@@ -63,4 +63,24 @@ module.exports.createUser=function(req,res){
 
 // Create session
 module.exports.CreateSession=function(req,res){
+   Userdb.findOne({email:req.body.email},function(err,user){
+      if(err){console.log("Error in finding email"); return ;}
+      if(user){
+            if(user.password===req.body.password){
+               res.cookie('user_id',user.id);
+               res.redirect('/users/profile');
+            }else{
+             return res.redirect('back');
+            }
+       }
+       else{
+          return res.redirect('back');
+       }
+    });
+}
+
+// Destroy user cookie signout
+module.exports.signout=function(req,res){
+   res.clearCookie("user_id");
+   return res.redirect('users/login');
 }

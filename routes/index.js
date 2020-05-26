@@ -12,5 +12,6 @@ routers.use('/posts',require('./posts'));
 
 
 routers.post('/create-user',userController.createUser);
-
+routers.post('/CreateSession',userController.CreateSession);
+routers.get('/signout',userController.signout);
 module.exports=routers;
