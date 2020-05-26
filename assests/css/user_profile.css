@@ -1,3 +1,15 @@
 body{
     background-color: tomato;
 }
+.signout{
+    margin-left:88%;
+    margin-top:5%;
+}
+.signout button{
+    font-size: 1rem;
+    padding:0.2rem;
+    color:white;
+    background-color: black;
+    border:none;
+    cursor: pointer;
+}
