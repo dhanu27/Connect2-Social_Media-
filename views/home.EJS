@@ -8,10 +8,18 @@
           <textarea rows="5" placeholder="Type here ..."name="content"></textarea>
           <button type="submit" > Post</button>
         </form>
-        <div id="posts-container">
-          <% for(let i of post){%>
-            <div class="post"><%= i.content%></div>
-            <%}%>
+      <%}%> 
+        <div id="post-list-container">
+            <% for(i of post){%>
+
+              <div class="post-container">
+                  <div class="post-detail"> 
+                    <%= i.user.name%>
+                  </div> 
+                  <div class="post-content"> 
+                    <%= i.content%>
+                  </div>  
+              </div>
+              <%}%>
         </div>  
-      <%}%>
   </section>

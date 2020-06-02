@@ -28,7 +28,7 @@ header {
     overflow: scroll;
     border: 2px solid green; }
 
-#posts-container {
+#post-list-container {
   width: 100%;
   border: 1px solid black; }
 
@@ -47,12 +47,17 @@ header {
       width: 2rem;
       height: 2.5rem; }
 
-.post {
-  min-height: 3rem;
+.post-container {
   height: auto;
   padding: 0.4rem;
-  margin: 0.3rem 0.2rem 0.2rem;
-  color: black;
-  background-color: azure;
-  font-size: 1.4rem;
-  border: 1px solid lightgray; }
+  margin: 0.3rem 0.2rem 0.2rem; }
+  .post-container .post-detail {
+    height: 1.5rem;
+    background-color: white;
+    border: 1px solid wheat; }
+  .post-container .post-content {
+    color: black;
+    background-color: azure;
+    font-size: 1.4rem;
+    padding: 0.4rem;
+    border: 1px solid lightgray; }
