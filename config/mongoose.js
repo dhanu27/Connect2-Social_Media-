@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-mongoose.connect("mongodb://localhost/Connect2_development");
+mongoose.connect("mongodb://127.0.0.1/Connect2_development");
 const db=mongoose.connection;
 
 db.on("error",console.error.bind(console,"WTF Error in Moongoose ODM"));

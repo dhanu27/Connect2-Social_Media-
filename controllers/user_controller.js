@@ -1,66 +1,65 @@
-const Userdb=require('../models/usersDB');
+const User = require('../models/usersDB');
 
-module.exports.profile=function(req,res){
-   // console.log(req.query);
-   console.log(req.cookies);
-   if(req.cookies.user_id){
-       Userdb.findById(req.cookies.user_id,function(err,user){
-          if(err){console.log("Error in finding the user by id"); return;};
-          if(user){
-             console.log("hjkmliii");
-               return res.render('profile',({
-               title:"profile",
-               name:user.name,
-               email:user.email
-            }));
-          }
-          else{
-             return res.redirect('/users/login');
-          }
-       })
-   }else{
-      return res.redirect('/users/login');
-   }  
+
+module.exports.profile = function(req, res){
+    return res.render('profile', {
+        title: 'User Profile'
+    })
 }
 
-// Render Sign up page
-  module.exports.signup=function(req,res){
-   console.log("Inside a Signup Controller");
-   return res.render('signup')
-}
-//Render Login page
-module.exports.login=function(req,res){
-   res.render('loginPage');
-}
 
-// For Creating new User
-module.exports.createUser=function(req,res){
-   console.log(req.body);
-    if(req.body.password!=req.body.cpassword){
-      return res.redirect('back');
+// render the sign up page
+module.exports.signUp = function(req, res){
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
     }
-    Userdb.findOne({email:req.body.email},function(err,user){
-        if(err){console.log("Error in finding email"); return ;}
-        if(!user){
-            Userdb.create({
-               'email':req.body.email,
-               'password':req.body.password,
-               'name':req.body.name
-            },function(err,user){
-               if(err){console.log("Error in while creating User Signing up ",err);
-               Userdb.remove();
-                return;}
+   else{ 
+    return res.render('signup', {
+        title: "Connect2 | Sign Up"
+    })
+   } 
+}
 
-               console.log("Inside a Create Users");
-               
-               return  res.redirect('users/login');
-            });
+
+// render the sign in page
+module.exports.signIn = function(req, res){
+    if(req.isAuthenticated()){
+        console.log("After clicking signin button");
+        return res.redirect('/',{
+            title:"Connect2 | Home",
+        });
+    }
+    return res.render('loginpage', {
+        title: "Connect2 | Sign In"
+    })
+}
+
+// get the sign up data
+module.exports.create = function(req, res){
+    if (req.body.password != req.body.confirm_password){
+        console.log("Passwords are not smae");
+        return res.redirect('back');
+    }
+
+    User.findOne({email: req.body.email}, function(err, user){
+        if(err){console.log('error in finding user in signing up'); return}
+
+        if (!user){
+            User.create(req.body, function(err, user){
+                if(err){console.log('error in creating user while signing up'); return}
+
+                return res.redirect('/users/login');
+            })
         }else{
-         return res.redirect('back');
+            return res.redirect('back');
         }
+
     });
 }
 
-// Create session
-module.exports.CreateSession=function(req,res){
+
+// sign in and create a session for the user
+module.exports.createSession = function(req, res){
+    return res.redirect('/');
 }

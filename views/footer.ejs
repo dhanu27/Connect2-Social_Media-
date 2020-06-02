@@ -1,5 +1,8 @@
 <footer>
-  
-    <h1>footer Of Connect2</h1>
-
+      <ul class=nav>
+        <% if(locals.user){ %> 
+          <li><a href="/users/profile"><%= user.name %></a></li>
+          <li><a href="/users/profile"><%= user.email %></a></li>
+        <%}%>  
+        </ul>
 </footer>    

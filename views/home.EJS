@@ -1,5 +1,8 @@
 <title>
   <%=title%>
-</title>   
-<h1>You are at <%=title%> of Connect2</h1>
-
+</title> 
+ <% if(locals.user){%>
+  <h1>Welcome <%=user.name%> to Connect2 </h1>
+  <%} else {%>
+  <h1>Welcome to <%=title%> </h1>
+  <%}%>

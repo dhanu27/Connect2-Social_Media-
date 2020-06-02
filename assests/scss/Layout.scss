@@ -1,0 +1,39 @@
+/* console.log('sdfg'); */
+body{
+    margin: 0;
+    padding:0;
+    text-align: center;
+    position: relative;
+    // height:90%;
+    // border: 1px solid red;;
+}
+footer{
+    position: absolute;
+    top:90%;
+    background-color: yellow;
+    width:100%;
+    color: black;
+}
+header{
+    background-color: green;
+    color: white;
+}
+.nav{
+    padding: 0.2rem;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+   li{
+      display:block;
+      font-size:1.5rem;
+      a{ 
+      text-decoration: none;
+      }
+       img{
+           width:2rem;
+           height:2.5rem;
+       }
+       
+   }
+}

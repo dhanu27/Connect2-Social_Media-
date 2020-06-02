@@ -1,7 +1,32 @@
 /* console.log('sdfg'); */
-body{
-    margin: 0;
-    padding:0;
-    text-align: center;
-    background-color: teal;
-}
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  position: relative; }
+
+footer {
+  position: absolute;
+  top: 90%;
+  background-color: yellow;
+  width: 100%;
+  color: black; }
+
+header {
+  background-color: green;
+  color: white; }
+
+.nav {
+  padding: 0.2rem;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; }
+  .nav li {
+    display: block;
+    font-size: 1.5rem; }
+    .nav li a {
+      text-decoration: none; }
+    .nav li img {
+      width: 2rem;
+      height: 2.5rem; }

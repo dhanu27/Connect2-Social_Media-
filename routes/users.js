@@ -1,16 +1,28 @@
-const express=require('express'); 
-const router=express.Router();
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+
+const usersController = require('../controllers/user_controller');
+
+router.get('/profile',passport.checkauthentication, usersController.profile);
+
+router.get('/sign-up', usersController.signUp);
+router.get('/login', usersController.signIn);
 
 
-const userController=require('../controllers/user_controller');
-router.get('/profile',userController.profile);
-router.get('/login',userController.login);
-router.get('/signup',userController.signup);
+router.post('/create', usersController.create);
 
-//Action for create User 
-// router.post('/create-user',)
+// use passport as a middleware to authenticate
+router.post('/create-session', passport.authenticate(
+    'local',
+    {failureRedirect: '/users/login'},
+), usersController.createSession);
 
-
-
-
-module.exports=router;
+router.get('/sign-out',function(req,res){
+    req.logOut();
+    console.error("Something in routes")
+    res.render('loginpage',{
+        title:"Connect2"
+    });
+});
+module.exports = router;
