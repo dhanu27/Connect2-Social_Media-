@@ -1,12 +1,10 @@
 /* console.log('sdfg'); */
 body {
   margin: 0;
-  padding: 0;
-  text-align: center;
-  position: relative; }
+  padding: 0; }
 
 footer {
-  position: absolute;
+  position: relative;
   top: 90%;
   background-color: yellow;
   width: 100%;
@@ -15,6 +13,24 @@ footer {
 header {
   background-color: green;
   color: white; }
+
+#post-feed {
+  margin-left: 25%;
+  width: 50%;
+  height: auto;
+  border: 2px solid blue; }
+  #post-feed textarea {
+    margin-left: 10%;
+    width: 80%;
+    height: 100px;
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    overflow: scroll;
+    border: 2px solid green; }
+
+#posts-container {
+  width: 100%;
+  border: 1px solid black; }
 
 .nav {
   padding: 0.2rem;
@@ -30,3 +46,13 @@ header {
     .nav li img {
       width: 2rem;
       height: 2.5rem; }
+
+.post {
+  min-height: 3rem;
+  height: auto;
+  padding: 0.4rem;
+  margin: 0.3rem 0.2rem 0.2rem;
+  color: black;
+  background-color: azure;
+  font-size: 1.4rem;
+  border: 1px solid lightgray; }
