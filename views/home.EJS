@@ -5,7 +5,7 @@
   <h1>Posts</h1>
     <% if(locals.user){%>          
         <form action="/posts/create-post" method="POST">
-          <textarea rows="5" placeholder="Type here ..."name="content"></textarea>
+          <textarea rows="5" placeholder="Type here ..."name="content" required></textarea>
           <button type="submit" > Post</button>
         </form>
       <%}%> 
@@ -15,9 +15,37 @@
               <div class="post-container">
                   <div class="post-detail"> 
                     <%= i.user.name%>
+                    <% if(locals.user && locals.user.id==i.user.id){%> 
+                    <a href="/posts/destroy/<%= i._id%>">X</a>
+                    <%}%>
                   </div> 
                   <div class="post-content"> 
                     <%= i.content%>
+                  </div>
+                 <!-- <% if(i.user.id==locals.user){%>  -->
+        
+                  <!-- <%}%>     -->
+                    <!-- <button class=""><i class="far fa-comment-dots"></i></button> -->
+                    <% if(locals.user){%>
+                    <div class="post-options">   
+                    <form action="/comment/create-comment" method="POST">
+                      <input type="text"  placeholder="Add Comment"name="content">
+                      <input type="hidden" name="postId" value="<%= i._id%>">
+                      <button type="submit" >Add Comment</button>
+                    </form> 
+                  </div> 
+                  <%}%>    
+                  <div class="comment-list-container">
+                    <%for(comment of i.comments){%>
+                     <div class="comment-container">
+                      <div class="detail"><%= comment.user.name%>
+                      <% if(comment.user.id==locals.user.id){%>  
+                       <div><a href="/comment/destroy/<%= comment._id%>">X</a></div> 
+                       <%}%> 
+                      </div>
+                       <div class="content"><%= comment.content%></div>
+                     </div>
+                    <%}%> 
                   </div>  
               </div>
               <%}%>

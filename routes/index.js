@@ -10,5 +10,5 @@ const userController=require('../controllers/user_controller')
 routers.get('/',homeController.home);
 routers.use('/users',require('./users'));
 routers.use('/posts',require('./posts'));
-
+routers.use('/comment',require('./comment'));
 module.exports=routers;
