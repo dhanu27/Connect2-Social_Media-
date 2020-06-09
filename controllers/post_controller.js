@@ -4,37 +4,60 @@ const Comment=require('../models/comment');
 module.exports.posts=function(req,res){
     return res.send("<div><h1>No posts Available</h1></div>")
 }
-module.exports.createPost=function(req,res){
-      Post.create({
+module.exports.createPost=async  function(req,res){
+   
+    try{
+       let post=await Post.create({
           content:req.body.content,
           user:req.user._id
-      },function(err,post){
-          if(err){
-              console.log("Sorry not able to post");
-              return ;
-          }
-          else{
-           return res.redirect('back');
-          }
-      })
+      });
+       if(req.xhr){
+        post=await Post.findById(post._id).populate('user','name');
+        console.log(post);
+           return res.status('200').json({
+               
+               data:{
+                   post:post
+               },
+               message:"Post get Published"
+           })
+       }
+      req.flash("success","Post Published");
+      return res.redirect('back');
+    }catch(err){
+        req.flash('error',"Try again Later");
+        return res.redirect('back');
+    }  
 }
 
 
-module.exports.destroyPost=function(req,res){
-    Post.findById(req.params.id,function(err,post){
-        if(err){console.log("Error in finding post"); return ;}
-        // user who deleting the post is the user who posted a post
-        if(post.user==req.user.id){
+module.exports.destroyPost=async function(req,res){
+    try{
+        let post = await Post.findById(req.params.id);
+
+        if (post.user == req.user.id){
             post.remove();
-            Comment.deleteMany({post:req.params.id},function(err){
-               if(err){console.log("Error in Deleting a comment"); return;} 
-                return res.redirect('back');
-            });  
+
+            await Comment.deleteMany({post: req.params.id});
+            if(req.xhr){
+                return res.status('200').json({
+                    data:{
+                        post_id:req.params.id
+                      
+                    },
+                    message:"Post get Deleted"
+                })
+            }
+            req.flash("success", 'Post and associated comments deleted!');
+
+            return res.redirect('back');
         }else{
-         console.log("USer Not Delete this post");
+            req.flash("error", 'You cannot delete this post!');
             return res.redirect('back');
         }
 
-    })
+    }catch(err){
+      console.log("error",err);
+    }
 }
 

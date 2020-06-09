@@ -15,6 +15,7 @@ header {
   color: white; }
 
 #post-feed {
+  display: inline-block;
   margin-left: 25%;
   width: 50%;
   height: auto;
@@ -61,3 +62,19 @@ header {
     font-size: 1.4rem;
     padding: 0.4rem;
     border: 1px solid lightgray; }
+
+a {
+  text-decoration: none; }
+
+#friends-list {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  margin-left: 2%;
+  border: 2px solid greenyellow;
+  font-size: 1.2rem;
+  color: black;
+  padding: 0.2rem; }
+  #friends-list div {
+    margin-bottom: 0.1rem;
+    border-bottom: 1px solid black; }

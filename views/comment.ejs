@@ -1,0 +1,12 @@
+<div id="comment-list-container-<%=i._id%>">
+    <%for(comment of i.comments){%>
+     <div class="comment-container" id="comment-<%= comment._id%>">
+      <div class="detail"><%= comment.user.name%>
+      <% if(locals.user && comment.user.id==locals.user.id){%>  
+       <div><a href="/comment/destroy/<%= comment._id%>" class="comment-delete-bttn">X</a></div> 
+       <%}%> 
+      </div>
+       <div class="content"><%= comment.content%></div>
+     </div>
+    <%}%> 
+</div>  

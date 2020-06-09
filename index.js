@@ -10,7 +10,9 @@ const passport = require('passport');
 const passportLocal = require('./config/passort-local-auth');
 const MongoStore=require('connect-mongodb-session')(session);
 const sassMiddleware=require('node-sass-middleware');
-
+const flash=require('connect-flash');
+const custMiddleware=require('./config/middleware');
+// const Noty = require('noty');
 app.use(sassMiddleware({
     src:'./assests/scss',
     dest:'./assests/css',
@@ -48,21 +50,27 @@ app.use(session({
     cookie: {
         maxAge: (1000 * 60 * 100)
     },
-    store:new MongoStore({
-          mongooseconnect:db,
-          autoRemove:'disabled'
-    },
-    function(err){
-        console.log(err||"connect MongoStore");
-    }
+    store: new MongoStore(
+        {
+            mongooseConnection: db,
+            autoRemove: 'disabled'
+        },
+        function(err){
+            console.log(err ||  'connect-mongodb setup ok');
+        }
     )
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthentication);
+
+
+app.use(flash());
+app.use(custMiddleware.setFlash);
 // use express router
 app.use('/', require('./routes'));
+
 
 
 app.listen(port, function(err){
@@ -72,3 +80,4 @@ app.listen(port, function(err){
 
     console.log(`Server is running on port: ${port}`);
 });
+

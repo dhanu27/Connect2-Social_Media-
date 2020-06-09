@@ -4,7 +4,8 @@ const passport = require('passport');
 
 const usersController = require('../controllers/user_controller');
 
-router.get('/profile',passport.checkauthentication, usersController.profile);
+router.get('/profile/:id',passport.checkauthentication, usersController.profile);
+router.post('/update/:id',passport.checkauthentication,usersController.update);
 
 router.get('/sign-up', usersController.signUp);
 router.get('/login', usersController.signIn);
@@ -18,11 +19,7 @@ router.post('/create-session', passport.authenticate(
     {failureRedirect: '/users/login'},
 ), usersController.createSession);
 
-router.get('/sign-out',function(req,res){
-    req.logOut();
-    console.error("Something in routes")
-    res.render('loginpage',{
-        title:"Connect2"
-    });
-});
+router.get('/sign-out',usersController.destroySession);
+
+
 module.exports = router;
