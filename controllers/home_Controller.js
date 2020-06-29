@@ -1,6 +1,6 @@
 const Post=require('../models/post.js');
 const User=require('../models/usersDB.js');
-
+const moment=require('moment');
 // populate the user details 
 module.exports.home =async function(req, res){
    try{ 
@@ -15,7 +15,8 @@ module.exports.home =async function(req, res){
     return res.render('home', {
                 title: "Home",
                 post:posts,
-                allusers:users
+                allusers:users,
+                moment: moment
     });
    }catch(err){
        console.log("Error",err);

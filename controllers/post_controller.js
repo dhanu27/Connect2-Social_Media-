@@ -4,15 +4,30 @@ const Comment=require('../models/comment');
 module.exports.posts=function(req,res){
     return res.send("<div><h1>No posts Available</h1></div>")
 }
+ 
 module.exports.createPost=async  function(req,res){
    
     try{
+    //     console.log(req.files);
+    //     let imgPath=async function(req,res){
+    //         await Post.uploadedAvatar(req,res,function(err){
+    //             console.log("One step Pass");
+    //             if(err){console.log("%%%%%%%% Multer error%%%%%%%%%%%%%%%%"); return ;};
+    //              console.log(req.file);
+    //             return  Post.avatarPath+'/'+req.file.filename;
+    //     });
+    //   }
+      
+    //   let p=imgPath(req,res);
+    //   console.log(p);
+        
        let post=await Post.create({
           content:req.body.content,
           user:req.user._id
       });
        if(req.xhr){
         post=await Post.findById(post._id).populate('user','name');
+
         console.log(post);
            return res.status('200').json({
                

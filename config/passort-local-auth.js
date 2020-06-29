@@ -12,7 +12,7 @@ passport.use(new LocalStrategy({
     },
     function(req,email, password, done){
         // find a user and establish the identity
-        User.findOne({email: email}, function(err, user)  {
+        User.findOne({email: email},function(err, user){
             if (err){
                 req.flash('error',"No user Found");
                 return done(err);

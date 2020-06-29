@@ -1,9 +1,11 @@
 const User = require('../models/usersDB');
-
+const fs=require('fs');
+const path=require('path');
 
 module.exports.profile =async function(req, res){
    try{ 
     let user=await User.findById(req.params.id);
+      console.log("%%%%%%from profile",user);
         return res.render('profile', {
             title: 'User Profile',
             profile_user:user
@@ -50,7 +52,7 @@ module.exports.create =async function(req, res){
         let user=await User.findOne({email: req.body.email}); 
 
             if (!user){
-                    await User.create(req.body);//can u runonce what run yp
+                    await User.create(req.body);
                     return res.redirect('/users/login');
             }else{
                req.flash("error","Alreay exits try with another");
@@ -61,20 +63,39 @@ module.exports.create =async function(req, res){
    } 
 }
 
-module.exports.update=function(req,res){
-    console.log(req.params.id);
-   if(req.params.id==req.user.id){ 
-       console.log(req.body);
-    User.findByIdAndUpdate(req.user.id,req.body,function(err,user){
-        if(err){console.log("Error",err); return ;}
-        req.flash("success","Profile Get Updated");
-        return res.redirect('back');//no flash is working?Previously working but before 1hr it not .what changes u made?i made changes but remove
-    })
-   }else{
-    req.flash("error","Unauthorized");
-     return res.status(401).send('Unauthorized');
-   }
+module.exports.update=async function(req,res){
+        
+    try{
+         
+        if(req.params.id==req.user.id){ 
+               let user=await User.findById(req.params.id);
+                await User.uploadedAvatar(req,res,function(err){
+                     if(err){console.log("%%%%%%%% Multer error%%%%%%%%%%%%%%%%"); return ;};
+                     user.name=req.body.name;
+                     user.email=req.body.email;
+                     if(req.file){
+                        // To check file exist if it is remove it
+                        if(user.avatar){
+                            if(fs.existsSync(path.join(__dirname,"..",user.avatar))){
+                               fs.unlinkSync(path.join(__dirname,"..",user.avatar));
+                            }
+                        }
+                           //  this is saving the file path  in the avatar field of the user 
+                         user.avatar=User.avatarPath+'/'+req.file.filename;
+                         console.log(user);
+                     }
+                     user.save();  
+                 });
+                    req.flash("success","Profile Get Updated");
+                    return res.redirect('back');
+            }     
+    }catch{
+        req.flash("error",err);
+    }
+
+
 }
+
 
 // sign in and create a session for the user
 module.exports.createSession = function(req, res){

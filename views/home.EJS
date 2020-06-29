@@ -4,13 +4,13 @@
 <section id="post-feed">
   <h1>Posts</h1>
     <% if(locals.user){%>          
-        <form action="/posts/create-post" method="POST" id="post-form">
-          <textarea rows="5" placeholder="Type here ..."name="content" required></textarea>
+        <form action="/posts/create-post" method="POST" id="post-form" enctype="multipart/form-data">
+          <textarea rows="5" placeholder="Type here ..."name="content" id="post-content" required></textarea>
+          <!-- <input type="file" name="avatar" id="post-file"> -->
           <button type="submit" > Post</button>
         </form>
       <%}%> 
      <%-include('post')-%>
-      
   </section>
 <section id="friends-list">
   <h1>Friends</h1>

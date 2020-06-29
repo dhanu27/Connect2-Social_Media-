@@ -1,26 +1,34 @@
 <div id="post-list-container">
-    <% for(i of post){%>
+  <% for(i of post){%>
 
-      <div class="post-container" id="post-<%= i._id%>">
-          <div class="post-detail"> 
-            <%= i.user.name%>
-            <% if(locals.user && locals.user.id==i.user.id){%> 
-            <a class="deletePost-bttn" href="/posts/destroy/<%= i._id%>">X</a>
-            <%}%>
-          </div> 
-          <div class="post-content"> 
-            <%= i.content%>
-          </div>
-            <% if(locals.user){%>
-            <div class="post-options">   
-            <form action="/comment/create-comment" method="POST"  class="comment-form">
-              <input type="text"  placeholder="Add Comment"name="content">
-              <input type="hidden" name="postId" value="<%= i._id%>">
-              <button type="submit" >Add Comment</button>
-            </form> 
-          </div> 
-          <%}%>    
-        <%- include('comment')-%>
+  <div class="post-container" id="post-<%= i._id%>">
+        <div class="post-navbar">
+            <div class="author-img">
+                  <img src="<%=i.user.avatar%>" onerror="this.onerror=null; this.src='/img/default.png'" alt="" width="60px">
+            </div>      
+            <div class="author-name-date">
+                 <span class="author-name"><%= i.user.name%></span>
+                 <span class="action-date"> <%= moment( i.createdAt).format("YYYY-MM-DD  HH:mm");%></span>
+            </div>   
+             <% if(locals.user && locals.user.id==i.user.id){%>
+             <div class="delete-opt">
+                   <a class="deletePost-bttn" href="/posts/destroy/<%= i._id%>">X</a>
+              </div>      
+              <%}%>
+        </div> 
+      <div class="post-content"> 
+          <%= i.content%>
       </div>
-      <%}%>
+      <% if(locals.user){%>
+      <div class="post-options">
+        <form action="/comment/create-comment" method="POST" class="comment-form">
+          <input type="text" placeholder="Add Comment" name="content">
+          <input type="hidden" name="postId" value="<%= i._id%>">
+          <button type="submit">Add Comment</button>
+        </form>
+      </div>
+      <%}%>    
+        <%- include('comment')-%>
+    </div>
+    <%}%>
 </div> 

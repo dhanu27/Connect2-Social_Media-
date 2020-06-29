@@ -5,7 +5,7 @@ const routers =express.Router();
 
 const homeController=require('../controllers/home_controller');
 
-
+routers.use('/api',require('./api'));
 
 routers.get('/',homeController.home);
 routers.use('/users',require('./users'));
