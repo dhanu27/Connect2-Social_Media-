@@ -20,4 +20,11 @@
      
    </body>
    <%- script%> 
+  <script> 
+   $('.request-bttn').each(function(){
+     console.log("Request");
+    let self=this;
+    let toogleFriend=new ToggleFriend(self);
+  })
+ </script> 
 </html>

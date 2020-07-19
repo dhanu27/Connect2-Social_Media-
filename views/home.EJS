@@ -1,6 +1,16 @@
 <title>
   <%=title%>
 </title> 
+<section id="suggestions-list">
+  <h1>Suggestions for Friends</h1>
+  <div class=friends-container> 
+    <div class="friend">
+     <% for(suggest of suggestions){%>
+       <div><a href="/users/profile/<%= suggest.id%>"><%=suggest.name %></a></div>
+     <%}%> 
+   </div>
+ </div>
+</section>   
 <section id="post-feed">
   <h1>Posts</h1>
     <% if(locals.user){%>          
@@ -16,13 +26,12 @@
   <h1>Friends</h1>
   <div class=friends-container>
      <div class="friend">
-        <% for(friend of allusers){%>
+        <% for(friend of friends){%>
            <div><a href="/users/profile/<%= friend.id%>"><%=friend.name %></a></div>
          <%}%> 
      </div>
   </div>
-
-</section>  
+</section>
 <script src="/js/home_post.js"></script>
 <script src="/js/toggle_likes.js"></script>
 <script>

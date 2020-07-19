@@ -8,11 +8,12 @@
            <input type="email" name="email" value="<%= profile_user.email%>" required>
            <input type="file" name="avatar">
            <button type="submit">Update</button>
-        </form>  
+        </form> 
     <%}else {%>
         <h1>profile of <%=profile_user.name %></h1>
         <h1><%= profile_user.email%></h1>
+        <a class="request-bttn" href="/friend/add/<%=profile_user.id%>">Add</a> 
    <%}%>
-
+ <script src="/js/friend_request.js"></script>
 
 

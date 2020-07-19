@@ -23,12 +23,16 @@ module.exports.home =async function(req, res){
               }
            }                  
         // console.log("home Controller",posts[0].comments.name);                     
-    let users=await User.find({});
+   
+    let friends=await User.find({_id:req.user.id}).populate('friends');
+    
+    let SuggestedUsers=await User.find({ _id: { $ne: friends._id } });
 
     return res.render('home', {
                 title: "Home",
                 post:posts,
-                allusers:users,
+                suggestions:SuggestedUsers,
+                friends:friends,
                 moment: moment
     });
    }catch(err){
