@@ -88,6 +88,11 @@ header {
     font-size: 1.4rem;
     padding: 0.4rem;
     border: 1px solid lightgray; }
+  .post-container .post-options {
+    margin-top: 0.2rem;
+    border-top: 2px solid aquamarine; }
+    .post-container .post-options form {
+      display: inline-block; }
 
 a {
   text-decoration: none; }
@@ -104,3 +109,17 @@ a {
   #friends-list div {
     margin-bottom: 0.1rem;
     border-bottom: 1px solid black; }
+
+.like-bttn {
+  border: 0;
+  background-color: white;
+  padding: 0; }
+  .like-bttn i {
+    font-size: 1.2rem;
+    margin: 0.2rem; }
+
+.lightgrey {
+  color: lightgrey; }
+
+.blue {
+  color: blue; }

@@ -102,6 +102,13 @@ header{
         font-size: 1.4rem;
         padding: 0.4rem;
         border:1px solid lightgray;
+    }
+    .post-options{
+       margin-top: 0.2rem;
+       border-top: 2px solid aquamarine; 
+        form{
+            display: inline-block; 
+        }
     }   
 }
 a{
@@ -122,4 +129,18 @@ a{
     }
 
 }
-
+.like-bttn{
+    border:0;
+    background-color: white;
+    padding:0;
+    i{
+        font-size: 1.2rem;
+        margin:0.2rem;
+    }
+}
+.lightgrey{
+    color:lightgrey;
+}
+.blue{
+    color:blue;
+}

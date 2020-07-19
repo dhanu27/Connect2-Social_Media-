@@ -1,0 +1,7 @@
+{
+    "redis-console.host": "localhost",
+    "redis-console.port": 6379,
+    "redis-console.password": "",
+    "redis-console.hostIpFamily": 4,
+    "git.ignoreLimitWarning": true
+}

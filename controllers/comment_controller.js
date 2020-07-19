@@ -1,6 +1,9 @@
 const Comment =require('../models/comment');
 const Post= require('../models/post');
 const User=require('../models/usersDB');
+const commentMailer=require('../mailers/comment_mailer');
+const queue=require('../config/kue');
+const commentMailWorker=require('../worker/comment_email_worker');
 
 
 module.exports.createComment=async function(req,res){
@@ -14,12 +17,18 @@ module.exports.createComment=async function(req,res){
                 });
                     post.comments.push(comment);
                     post.save();
-
+                    comment=await comment.populate('user','name').execPopulate();
+                    await post.populate('user','name email').execPopulate();
+                    // commentMailer.newComment(post);
+                    let job = queue.create('emails', post
+                       ).save( function(err){
+                       if(err ){ console.log( "Error in enqueue the comment on post email",err); return;}
+                       console.log("JobId",job.id);
+                    });
                     console.log("jjjj");
                     if(req.xhr){
                         console.log("Xhr request");
-                        comment=await Comment.findById(comment._id).populate('user','name');
-                        console.log(comment);
+                        console.log("******Xhr Comment",comment);
                         return res.status("200").json({
                             data:{
                                 comment:comment
@@ -47,7 +56,9 @@ module.exports.destroyComment=async function(req,res){
             let postId=comment.post; 
                 comment.remove();
            await Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}});
-           console.log("Deleted Comment");
+
+            //    destroy the associated likes for this comment
+           await Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
            if(req.xhr){
                console.log("To destroy comment");
             return res.status('200').json({

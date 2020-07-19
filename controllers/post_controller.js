@@ -26,9 +26,9 @@ module.exports.createPost=async  function(req,res){
           user:req.user._id
       });
        if(req.xhr){
-        post=await Post.findById(post._id).populate('user','name');
+        post=await Post.findById(post._id).populate('user likes','name');
 
-        console.log(post);
+        console.log("post",post);
            return res.status('200').json({
                
                data:{
@@ -54,11 +54,13 @@ module.exports.destroyPost=async function(req,res){
             post.remove();
 
             await Comment.deleteMany({post: req.params.id});
+             // delete the associated likes for the post and all its comments' likes too
+            await Like.deleteMany({likeable: post, onModel: 'Post'});
+            await Like.deleteMany({_id: {$in: post.comments}});
             if(req.xhr){
                 return res.status('200').json({
                     data:{
                         post_id:req.params.id
-                      
                     },
                     message:"Post get Deleted"
                 })

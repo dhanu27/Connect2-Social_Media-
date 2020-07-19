@@ -4,8 +4,7 @@
   "description": "Socail Media app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "Dhanu",
   "license": "ISC",
@@ -13,14 +12,17 @@
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^2.3.2",
     "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.3",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
+    "kue": "^0.11.6",
     "moment": "^2.26.0",
     "mongoose": "^5.9.15",
     "multer": "^1.4.2",
     "node-sass-middleware": "^0.11.0",
+    "nodemailer": "^6.4.10",
     "noty": "^3.2.0-beta",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",

@@ -19,15 +19,18 @@
       <div class="post-content"> 
           <%= i.content%>
       </div>
-      <% if(locals.user){%>
       <div class="post-options">
-        <form action="/comment/create-comment" method="POST" class="comment-form">
-          <input type="text" placeholder="Add Comment" name="content">
-          <input type="hidden" name="postId" value="<%= i._id%>">
-          <button type="submit">Add Comment</button>
-        </form>
-      </div>
-      <%}%>    
+        <% if(locals.user){%>
+          <a href="/like/toggle/?id=<%= i._id%>&type=post" class="like-bttn" data-likes="<%= i.likes.length %>"><i class="fa fa-thumbs-up lightgrey"></i><%= i.likes.length%> likes</a>
+          <form action="/comment/create-comment" method="POST" class="comment-form">
+            <input type="text" placeholder="Add Comment" name="content">
+            <input type="hidden" name="postId" value="<%= i._id%>">
+            <button type="submit">Add Comment</button>
+          </form>
+          <%}else{%>
+            <%= i.likes.length %> likes
+            <%}%>
+      </div>    
         <%- include('comment')-%>
     </div>
     <%}%>

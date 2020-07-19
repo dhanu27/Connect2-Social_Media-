@@ -127,9 +127,6 @@
            for(let j=0; j<CommentDeletebttn.length; j++){
               deleteComment(CommentDeletebttn[j]);
             }
-       
-
-
    }
    create_post(); 
 }

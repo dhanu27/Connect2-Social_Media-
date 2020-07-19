@@ -9,7 +9,8 @@ router.post('/update/:id',passport.checkauthentication,usersController.update);
 
 router.get('/sign-up', usersController.signUp);
 router.get('/login', usersController.signIn);
-
+router.get('/forgot',usersController.forgotPage);
+router.post('/forgotMail',usersController.forgotMail);
 
 router.post('/create', usersController.create);
 

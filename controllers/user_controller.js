@@ -1,6 +1,9 @@
 const User = require('../models/usersDB');
 const fs=require('fs');
 const path=require('path');
+const  forgotMailer=require('../mailers/forgot_mailer');
+const queue=require('../config/kue');
+const forgotMailWorker=require('../worker/forgot_email_worker');
 
 module.exports.profile =async function(req, res){
    try{ 
@@ -61,6 +64,26 @@ module.exports.create =async function(req, res){
    }catch(err){
      req.flash("error",err);
    } 
+}
+module.exports.forgotPage=function(req,res){
+    return res.render('forgot_password');
+}
+module.exports.forgotMail=async function(req,res){
+   
+    console.log(req.body);
+
+    let user=await User.findOne({email:req.body.email});
+    console.log("From forgotMail",user);
+    if(user){
+    let job = queue.create('emails', user
+      ).save( function(err){
+    if(err ){ console.log( "Error in enqueue the comment on post email",err); return;}
+    console.log("JobId",job.id);
+    });
+   }else{
+       console.log("Incorrect email");
+   }
+   return ;    
 }
 
 module.exports.update=async function(req,res){

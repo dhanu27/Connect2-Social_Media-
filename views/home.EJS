@@ -24,3 +24,10 @@
 
 </section>  
 <script src="/js/home_post.js"></script>
+<script src="/js/toggle_likes.js"></script>
+<script>
+  $('.like-bttn').each(function(){
+    let self=this;
+    let toogleLike=new ToggleLike(self);
+  })
+</script> 

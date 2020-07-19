@@ -1,10 +1,12 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const app = express();
-const port = 8007;
+const cookieParser = require('cookie-parser');
+const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+const kue=require('./config/kue');
 const path=require('path');
+
 // used for session cookie
 const session = require('express-session');
 const passport = require('passport');
