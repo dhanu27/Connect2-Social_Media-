@@ -14,7 +14,7 @@ const ejs = require("ejs");
     secure: false, // true for 465, false for other ports
     auth: {
       user: 'bhardwajdhanu08@gmail.com', 
-      pass: 'Mera@Naam@Joker',
+      pass: '%%%%%UserPassword%%%%',
     },
   });
   let renderTemplate =(data,relativePath)=>{

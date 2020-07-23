@@ -8,10 +8,14 @@ const forgotMailWorker=require('../worker/forgot_email_worker');
 module.exports.profile =async function(req, res){
    try{ 
     let user=await User.findById(req.params.id);
-      console.log("%%%%%%from profile",user);
+    let toggle=false;
+    if(req.params.type=='friends'){
+        toggle=true;
+    }
         return res.render('profile', {
             title: 'User Profile',
-            profile_user:user
+            profile_user:user,
+            toggle:toggle
         });
     }catch{
         console.log("error",err);

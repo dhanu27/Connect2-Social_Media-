@@ -13,7 +13,7 @@ const friendSchema=new mongoose.Schema({
     }
 },{timestamps:true});
 
-const Friend=mongoose.model('Friend',friendSchema);
+const Friend=mongoose.model('friend',friendSchema);
 
 module.exports=Friend;
 

@@ -1,16 +1,18 @@
 <title>
   <%=title%>
 </title> 
+<%if(locals.user){%>
 <section id="suggestions-list">
   <h1>Suggestions for Friends</h1>
   <div class=friends-container> 
     <div class="friend">
      <% for(suggest of suggestions){%>
-       <div><a href="/users/profile/<%= suggest.id%>"><%=suggest.name %></a></div>
+       <div><a href="/users/profile/<%= suggest.id%>/suggestions"><%=suggest.name %></a></div>
      <%}%> 
    </div>
  </div>
-</section>   
+</section>
+<%}%>   
 <section id="post-feed">
   <h1>Posts</h1>
     <% if(locals.user){%>          
@@ -22,16 +24,19 @@
       <%}%> 
      <%-include('post')-%>
   </section>
+<%if(locals.user){%>  
 <section id="friends-list">
   <h1>Friends</h1>
   <div class=friends-container>
      <div class="friend">
         <% for(friend of friends){%>
-           <div><a href="/users/profile/<%= friend.id%>"><%=friend.name %></a></div>
+           <div><a href="/users/profile/<%= friend.id%>/friends"><%=friend.name %></a></div>
          <%}%> 
      </div>
   </div>
 </section>
+<%}%>
+<%- include('chat_box')-%>
 <script src="/js/home_post.js"></script>
 <script src="/js/toggle_likes.js"></script>
 <script>
@@ -40,3 +45,10 @@
     let toogleLike=new ToggleLike(self);
   })
 </script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>
+<%if(locals.user){%>
+<script>
+  let ChatEngine=new chatEngine("chat-box","<%= locals.user.email%>");
+</script>
+<%}%>

@@ -17,6 +17,13 @@ const sassMiddleware=require('node-sass-middleware');
 const flash=require('connect-flash');
 const custMiddleware=require('./config/middleware');
 // const Noty = require('noty');
+
+/* Set up a chat Server */ 
+const chatServer=require('http').Server(app);
+const chatSocket=require('./config/chat_socket').chatSocket(chatServer);
+chatServer.listen(5000);
+console.log('Chat server is listening on 5000');
+
 app.use(sassMiddleware({
     src:'./assests/scss',
     dest:'./assests/css',

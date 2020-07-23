@@ -12,7 +12,12 @@
     <%}else {%>
         <h1>profile of <%=profile_user.name %></h1>
         <h1><%= profile_user.email%></h1>
-        <a class="request-bttn" href="/friend/add/<%=profile_user.id%>">Add</a> 
+        <a class="request-bttn" href="/friend/add/<%=profile_user.id%>" >
+          <%if(toggle){%>
+            Remove
+          <%}else{%>
+              Add
+            <%}%></a> 
    <%}%>
  <script src="/js/friend_request.js"></script>
 
